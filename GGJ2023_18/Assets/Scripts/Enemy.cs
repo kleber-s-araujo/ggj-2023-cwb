@@ -12,7 +12,9 @@ public class Enemy : MonoBehaviour
 
     private GameObject tree;
     private GameObject player;
+    private GameObject game;
 
+    private float multiLevel;
 
     //Methods
 
@@ -20,6 +22,7 @@ public class Enemy : MonoBehaviour
     {
         tree = GameObject.FindWithTag("Tree");
         player = GameObject.FindWithTag("Player");
+        game = GameObject.FindWithTag("GameController");
     }
     public void Update()
     {
@@ -28,8 +31,14 @@ public class Enemy : MonoBehaviour
             Die();
         }
 
+        //outra formula maluca pra ficar mais rapido por level
+        
+        float movementSpeedLevel = movementSpeed + game.GetComponent<Game>().level / 100;
+
+        print(movementSpeedLevel);
+
         this.transform.LookAt(tree.transform);
-        this.transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+        this.transform.Translate(Vector3.forward * movementSpeedLevel * Time.deltaTime);
     }
 
     public void Die()
@@ -42,15 +51,19 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+
+        float damageLevel = damage + game.GetComponent<Game>().level / 100;
+        
+
         if (other.tag == "Tree")
         {
-            tree.GetComponent<Tree>().health -= damage;
+            tree.GetComponent<Tree>().health -= damageLevel;
             Destroy(this.gameObject);
         }
 
         if (other.tag == "Player")
         {
-            player.GetComponent<Player>().health -= damage;
+            player.GetComponent<Player>().health -= damageLevel;
             Destroy(this.gameObject);
         }
 
