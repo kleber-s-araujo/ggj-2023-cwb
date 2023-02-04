@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
+    public float maxHealth;
     public float health;
-    
+
+    public HealthBar healthBar;
+
+    void Start()
+    {
+        health = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
+        healthBar.setHealth(health);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -13,6 +22,7 @@ public class Tree : MonoBehaviour
         {
             Die();
         }
+        healthBar.setHealth(health);
 
     }
 

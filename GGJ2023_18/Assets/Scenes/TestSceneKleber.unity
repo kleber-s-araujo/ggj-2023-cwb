@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -548,7 +548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3409de8cf906fbe40ad37bd16a094b39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   health: 500
+  healthBar: {fileID: 0}
 --- !u!1 &609695436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d80fb6f6a781a448a643f1624853821, type: 3}
@@ -711,7 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98613d651f376dc49b2c86d56813f8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 3696828901139364416, guid: a6381fde4ad09234d944eb8ada974c6b, type: 3}
+  Enemy: {fileID: 825972866562270630, guid: a6381fde4ad09234d944eb8ada974c6b, type: 3}
   level: 0
 --- !u!4 &764700215
 Transform:

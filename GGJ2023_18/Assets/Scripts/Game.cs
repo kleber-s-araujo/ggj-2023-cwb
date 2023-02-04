@@ -25,12 +25,26 @@ public class Game : MonoBehaviour
 
         if (count >= timeToSpawn)
         {
-            float randAux = Random.Range(-49, 49);
+            //float randAux = Random.Range(-49, 49);
+            float randAuxX;
+            float randAuxZ;
 
-            float y = 7;
-            float z = 49;
+            int randomNumber = Random.Range(0,2);
 
-            Instantiate(Enemy.transform, new Vector3(randAux, y, z), Enemy.transform.rotation);
+            if (randomNumber == 0)
+            {
+                randAuxX = Random.Range(-49f, 49f);
+                randAuxZ = Random.Range(0, 1) == 0 ? -49 : 49;
+            }
+            else
+            {
+                randAuxZ = Random.Range(-49f, 49f);
+                randAuxX = Random.Range(0, 2) == 0 ? -49 : 49;
+            }
+
+            float y = 4;
+
+            Instantiate(Enemy.transform, new Vector3(randAuxX, y, randAuxZ), Enemy.transform.rotation);
 
             count = 0;
             //regra maluca pra gerar cada vez mais rapido os inimigos...

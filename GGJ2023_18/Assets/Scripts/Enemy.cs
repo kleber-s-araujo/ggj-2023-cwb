@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //Variables
+    public float maxHealth;
     public float health;
     public float pointsToGive;
     public float movementSpeed;
@@ -14,7 +15,12 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private GameObject game;
 
+    private bool moveBackwards = false;
+    private float countBackwards = 0;
+
     private float multiLevel;
+
+    public HealthBar healthBar;
 
     //Methods
 
@@ -23,6 +29,10 @@ public class Enemy : MonoBehaviour
         tree = GameObject.FindWithTag("Tree");
         player = GameObject.FindWithTag("Player");
         game = GameObject.FindWithTag("GameController");
+
+        health = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
+        healthBar.setHealth(health);
     }
     public void Update()
     {
@@ -31,14 +41,31 @@ public class Enemy : MonoBehaviour
             Die();
         }
 
+        healthBar.setHealth(health);
+
         //outra formula maluca pra ficar mais rapido por level
-        
+
         float movementSpeedLevel = movementSpeed + game.GetComponent<Game>().level / 100;
 
         print(movementSpeedLevel);
+        Vector3 alvo = tree.transform.position;
+        alvo.y = this.transform.position.y;
 
-        this.transform.LookAt(tree.transform);
-        this.transform.Translate(Vector3.forward * movementSpeedLevel * Time.deltaTime);
+        this.transform.LookAt(alvo);
+        if (moveBackwards)
+        {
+            this.transform.Translate(Vector3.back * movementSpeedLevel * Time.deltaTime);
+            countBackwards += 1 * Time.deltaTime;
+            if (countBackwards > 0.6)
+            {
+                countBackwards = 0;
+                moveBackwards = false;
+            }
+        } else
+        {
+            this.transform.Translate(Vector3.forward * movementSpeedLevel * Time.deltaTime);
+        }
+        
     }
 
     public void Die()
@@ -57,8 +84,11 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == "Tree")
         {
+
             tree.GetComponent<Tree>().health -= damageLevel;
-            Destroy(this.gameObject);
+            moveBackwards = true;
+
+            //Destroy(this.gameObject);
         }
 
         if (other.tag == "Player")
