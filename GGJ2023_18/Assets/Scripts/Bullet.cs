@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Variables
-    public float speed = 7f;
+    public float speed = 15f;
     public float maxDistance;
 
     private GameObject triggeringEnemy;
