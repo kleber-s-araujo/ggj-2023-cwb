@@ -17,6 +17,14 @@ public class Player : MonoBehaviour
     public float points;
     public float health;
 
+    public Animator animator;
+    private Vector2 movimento;
+    private int inputXhash = Animator.StringToHash("InputX");
+    private int inputYhash = Animator.StringToHash("InputY");
+
+    private void Start() {
+        animator = GetComponent<Animator>();
+    }
 
     //Methods
     private void Update()
@@ -35,24 +43,55 @@ public class Player : MonoBehaviour
             playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);
         }
 
-        //Player Movement
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(Vector3.back * movementSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.D))
-            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
-
         //Shooting
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
+
+        //Player Animation
+        movimento = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        animator.SetFloat(inputXhash, movimento.x);
+        animator.SetFloat(inputYhash, movimento.y);
+
+        //Player Movement
+        if (movimento.y > 0)
+            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+        else if (movimento.y < 0)
+            transform.Translate(Vector3.back * movementSpeed * Time.deltaTime);
+
+        if (movimento.x < 0)
+            transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+        else if (movimento.x > 0)
+            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+
+        /*
+        if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetBool("isWalking", true);
+            
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            animator.SetBool("isBackWalking", true);
+            transform.Translate(Vector3.back * movementSpeed * Time.deltaTime);
+        }
+        else
+        {
+            animator.SetBool("isBackWalking", false);
+        }
+            
+        if (Input.GetKey(KeyCode.A))
+            transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.D))
+            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+        */
 
         if (health <= 0)
         {
@@ -64,7 +103,6 @@ public class Player : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet.transform, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
-
     }
 
     public void Die()
