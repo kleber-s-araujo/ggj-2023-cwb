@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
         maxDistance += 1 * Time.deltaTime;
 
-        if (maxDistance >= 10)
+        if (maxDistance >= 5)
         {
             Destroy(this.gameObject);
         }
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other)
-    {
+    {   
         if(other.tag == "Enemy")
         {
             triggeringEnemy = other.gameObject;
