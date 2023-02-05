@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     private int inputYhash = Animator.StringToHash("InputY");
 
     private void Start() {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = GameObject.Find("Men_Rigged").GetComponent<Animator>();
     }
 
     //Methods

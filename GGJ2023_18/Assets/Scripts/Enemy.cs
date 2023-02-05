@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
 
         float movementSpeedLevel = movementSpeed + game.GetComponent<Game>().level / 100;
 
-        print(movementSpeedLevel);
+        //print(movementSpeedLevel);
         Vector3 alvo = tree.transform.position;
         alvo.y = this.transform.position.y;
 
