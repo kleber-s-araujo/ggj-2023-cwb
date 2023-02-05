@@ -23,7 +23,8 @@ public class Player : MonoBehaviour
     private int inputYhash = Animator.StringToHash("InputY");
 
     private void Start() {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = GameObject.Find("Men_Rigged").GetComponent<Animator>();
     }
 
     //Methods
@@ -42,14 +43,6 @@ public class Player : MonoBehaviour
             targetRotation.z = 0;
             playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);
         }
-
-        //Shooting
-        /* Mudado para um script único
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-        */
 
         //Player Animation
         movimento = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

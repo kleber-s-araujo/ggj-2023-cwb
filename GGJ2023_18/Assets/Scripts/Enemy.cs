@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -21,8 +22,13 @@ public class Enemy : MonoBehaviour
     private float multiLevel;
 
     public HealthBar healthBar;
-
+    private NavMeshAgent navMeshAgent;
+    
     //Methods
+    private void Awake()
+    {
+        //navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
     public void Start()
     {
@@ -33,6 +39,8 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
         healthBar.setMaxHealth(maxHealth);
         healthBar.setHealth(health);
+
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
     public void Update()
     {
@@ -41,13 +49,16 @@ public class Enemy : MonoBehaviour
             Die();
         }
 
+        navMeshAgent.destination = tree.transform.position;
+
         healthBar.setHealth(health);
 
         //outra formula maluca pra ficar mais rapido por level
 
+        /*
         float movementSpeedLevel = movementSpeed + game.GetComponent<Game>().level / 100;
 
-        print(movementSpeedLevel);
+        //print(movementSpeedLevel);
         Vector3 alvo = tree.transform.position;
         alvo.y = this.transform.position.y;
 
@@ -65,7 +76,7 @@ public class Enemy : MonoBehaviour
         {
             this.transform.Translate(Vector3.forward * movementSpeedLevel * Time.deltaTime);
         }
-        
+        */
     }
 
     public void Die()
@@ -87,8 +98,7 @@ public class Enemy : MonoBehaviour
         {
 
             tree.GetComponent<Tree>().health -= damageLevel;
-            moveBackwards = true;
-
+            //moveBackwards = true;
             //Destroy(this.gameObject);
         }
 

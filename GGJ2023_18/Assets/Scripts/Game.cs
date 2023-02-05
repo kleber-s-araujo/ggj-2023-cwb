@@ -23,7 +23,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeToSpawn = Random.Range(1, 20);
+        timeToSpawn = Random.Range(1, 2);
         count = countLevel = 0f;
         level = 1;
         score = 0;
