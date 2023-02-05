@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Variables
-    public float speed = 15f;
+    public float speed = 20f;
     public float maxDistance;
 
     private GameObject triggeringEnemy;
@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
         maxDistance += 1 * Time.deltaTime;
 
-        if (maxDistance >= 5)
+        if (maxDistance >= 10)
         {
             Destroy(this.gameObject);
         }
@@ -32,6 +32,7 @@ public class Bullet : MonoBehaviour
             triggeringEnemy.GetComponent<Enemy>().health -= damage;
         }
 
-        Destroy(this.gameObject);
+        if(other.tag != "Player")
+            Destroy(this.gameObject);
     }
 }
