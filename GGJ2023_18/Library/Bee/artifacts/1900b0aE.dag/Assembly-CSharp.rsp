@@ -352,6 +352,7 @@
 "Assets/Scripts/Game.cs"
 "Assets/Scripts/HealthBar.cs"
 "Assets/Scripts/Player.cs"
+"Assets/Scripts/PlayerShot.cs"
 "Assets/Scripts/Tree.cs"
 -langversion:9.0
 
