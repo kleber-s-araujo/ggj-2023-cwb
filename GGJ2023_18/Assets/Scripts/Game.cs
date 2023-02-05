@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -9,12 +11,22 @@ public class Game : MonoBehaviour
     private float count;
     private float countLevel;
     public float level;
+
+    public int score;
+    public TextMeshProUGUI scoreText;
+    public GameObject tree;
+    public GameObject player;
+
+    public GameObject gameOverUI;
+    
+
     // Start is called before the first frame update
     void Start()
     {
         timeToSpawn = Random.Range(1, 20);
         count = countLevel = 0f;
         level = 1;
+        score = 0;
     }
 
     // Update is called once per frame
@@ -49,6 +61,10 @@ public class Game : MonoBehaviour
             count = 0;
             //regra maluca pra gerar cada vez mais rapido os inimigos...
             timeToSpawn = Random.Range(1f, 20f - level*0.1f);
+
+            
+
+
         }
 
         //Passa o nivel
@@ -58,8 +74,33 @@ public class Game : MonoBehaviour
             countLevel = 0;
         }
 
-        
+        if (tree.GetComponent<Tree>().health <= 0)
+        {
+            gameOver();
+        }
 
+        scoreText.text = score.ToString();
+    }
 
+    private void gameOver()
+    {
+        Debug.Log("dentro game over");
+        gameOverUI.SetActive(true);
+        player.SetActive(false);
+    }
+
+    public void restart()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void leave()
+    {
+        Application.Quit();
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

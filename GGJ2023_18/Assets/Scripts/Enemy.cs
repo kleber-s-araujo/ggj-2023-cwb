@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     //Variables
     public float maxHealth;
     public float health;
-    public float pointsToGive;
+    public int pointsToGive;
     public float movementSpeed;
     public float damage;
 
@@ -70,6 +70,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        game.GetComponent<Game>().score += pointsToGive;
         print("Enemy " + this.gameObject.name + " has died");
         Destroy(this.gameObject);
 
