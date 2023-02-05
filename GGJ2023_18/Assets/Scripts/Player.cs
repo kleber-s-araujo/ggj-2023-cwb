@@ -44,10 +44,12 @@ public class Player : MonoBehaviour
         }
 
         //Shooting
+        /* Mudado para um script único
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
+        */
 
         //Player Animation
         movimento = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
